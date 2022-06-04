@@ -1,0 +1,14 @@
+{
+  "name": "container-sweep",
+  "version": "1.0.0",
+  "description": "The Official Docable CLI",
+  "bin": {
+    "container-sweep": "./index.js"
+  },
+  "keywords": [],
+  "author": "Austin Nason",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.5.1"
+  }
+}
