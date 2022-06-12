@@ -1,3 +1,4 @@
+const Job = require('cron').CronJob;
 const Docker = require('dockerode');
 const docker = new Docker()
 
@@ -19,7 +20,7 @@ function containerMeetsCriteria(container, criteria) {
     containerName = container.Names[0]
     containerAge = parseInt(container.Status.replace(/^\D+/g, '')) * MINUTES_IN_HOUR
     criteriaName = criteria.name
-    criteriaAge = parseInt(criteria.age)
+    criteriaAge = criteria.age
 
     if (nameMeetsCriteria(containerName, criteriaName) && ageMeetsCriteria(containerAge, criteriaAge)) {
         return true
@@ -44,23 +45,24 @@ async function killContainersHandler(criteria) {
     })
 }
 
-exports.command = 'kill';
+exports.command = 'kill <range>';
 exports.desc = 'Deletes a Docable Notebook.';
+
 exports.builder = yargs => {
     yargs.options({
         'name': {
-            describe: 'The name of containers to delete.',
+            describe: 'The name criteria of containers to delete.',
             default: '*',
             type: 'string'
         },
         'age': {
-            describe: 'The age of containers to delete.',
-            default: '0',
-            type: 'string'
+            describe: 'The age criteria of containers to delete.',
+            default: 0,
+            type: 'number'
         }
     });
 };
 
 exports.handler = async arguments => {
-    killContainersHandler(arguments)
+    new Job(arguments.range, await killContainersHandler(arguments)).start();
 };
