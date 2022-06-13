@@ -1,0 +1,15 @@
+{
+  "server": {
+    "name": "Container Sweep Daemon",
+    "script": "../lib/server.js",
+    "instances": 1,
+    "env": {
+      "host": "localhost",
+      "port": "3000",
+      "mode": "kill",
+      "name": "*",
+      "age": 0,
+      "range": "* * * * * *"
+    }
+  }
+}

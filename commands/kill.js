@@ -1,4 +1,3 @@
-const Job = require('cron').CronJob;
 const Docker = require('dockerode');
 const docker = new Docker()
 
@@ -64,5 +63,5 @@ exports.builder = yargs => {
 };
 
 exports.handler = async arguments => {
-    new Job(arguments.range, await killContainersHandler(arguments)).start();
+    await killContainersHandler(arguments)
 };
