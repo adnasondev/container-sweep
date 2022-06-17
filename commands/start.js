@@ -1,20 +1,8 @@
-const exec = require('child_process').exec;
+const startDaemonHandler = require('../lib/handler').startDaemonHandler;
 
 exports.command = 'start';
-exports.desc = 'Starts the daemon for container-sweep.';
-exports.builder = yargs => {
-    yargs.options({
-    });
-};
+exports.desc = 'Starts Container Sweep.';
 
 exports.handler = async argv => {
-    exec('pm2 start --name container-sweep config/default.json --watch', (error, stdout, stderr) => {
-
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
-        
-        if (error !== null) {
-             console.log('exec error: ' + error);
-        }
-    });
+    startDaemonHandler();
 };
