@@ -1,8 +1,9 @@
-const fs = require('fs');
+const {updateCriteria, restartApp} = require('../lib/util');
+
 const config = require('config');
 
-exports.command = 'update <range>';
-exports.desc = 'Updates the criteria for containers to delete.';
+exports.command = 'kill <range>';
+exports.desc = 'Cleans up docker containers used by Docable.';
 
 exports.builder = yargs => {
     yargs.options({
@@ -20,9 +21,10 @@ exports.builder = yargs => {
 };
 
 exports.handler = async arguments => {
-    config.name = arguments.name
-    config.age = arguments.age
-    config.range = arguments.range
-    updateCriteriaHandler(config)
+    config.name = arguments.name;
+    config.age = arguments.age;
+    config.range = arguments.range;
+    updateCriteria(config);
+    restartApp();
 };
 
