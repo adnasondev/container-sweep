@@ -2,8 +2,7 @@
 
 ### Examples
 
-
-```
+```shell
 container-sweep kill "* * * * *"
 
 container-sweep kill --name "*" --age 0 "* * * * *"
